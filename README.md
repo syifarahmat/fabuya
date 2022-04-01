@@ -11,10 +11,20 @@ const fabuya = require('fabuya');
 
 let config = {};
 fabuya.create('clientName', config).then((client) => {
+	// When QR changed or created
+	// display them on console
+	client.onQRUpdated((qr) => {
+		console.log(qr);
+	});
+	
+	// This is when the QR has been scanned
 	client.onQRScanned(() => {
 		console.log("[*] QR Code scanned, logging in...");
 	});
 
+	// This is fired when new incoming/outgoing
+	// messages sent. Currently, the library also
+	// includes system messages
 	client.onMessage((msg) => {
 		console.log("[i] New message: ", msg.content);
 		msg.reply("Hello!");
