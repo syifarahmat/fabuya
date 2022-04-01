@@ -1,11 +1,11 @@
 {
   "name": "fabuya",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Baileys Whatsapp library wrapper",
   "main": "index.js",
   "scripts": {
     "build": "tsc -p ./Baileys",
-    "prepublish": "npm i -D --prefix ./Baileys"
+    "build:baileys": "npm i -D --prefix ./Baileys"
   },
   "repository": {
     "type": "git",
