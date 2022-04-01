@@ -108,4 +108,4 @@ dist
 
 # Baileys
 baileys-lib
-auth*
+auth_info*

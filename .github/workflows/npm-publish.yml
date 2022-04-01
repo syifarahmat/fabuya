@@ -23,6 +23,8 @@ jobs:
       - run: npm install
       - run: npm run init:baileys
       - run: mv ./Baileys/lib ./baileys-lib
+      - run: mv ./Baileys/WAProto ./baileys-lib/WAProto
+      - run: mv ./Baileys/WABinary ./baileys-lib/WABinary
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
