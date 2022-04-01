@@ -1,2 +1,5 @@
-Baileys/*
-!Baileys/lib/
+Baileys/
+auth*
+Examples/
+.*
+*~

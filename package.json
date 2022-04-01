@@ -4,8 +4,8 @@
   "description": "Baileys Whatsapp library wrapper",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p ./Baileys",
-    "build:baileys": "npm i -D --prefix ./Baileys"
+    "build:baileys": "tsc -p ./Baileys --outDir ./baileys-lib",
+    "install:baileys": "npm i -D --prefix ./Baileys"
   },
   "repository": {
     "type": "git",

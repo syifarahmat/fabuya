@@ -107,5 +107,5 @@ dist
 *~
 
 # Baileys
-Baileys/lib/
+baileys-lib
 auth*

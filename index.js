@@ -1,7 +1,7 @@
 const EventEmitter = require('events');
 const stream = require('stream');
 
-const Baileys = require('./Baileys/lib');
+const Baileys = require('./baileys-lib');
 const QR = require('qrcode-terminal');
 
 const logger = require('./logger');

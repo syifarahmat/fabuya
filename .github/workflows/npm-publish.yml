@@ -21,6 +21,7 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
           registry-url: https://registry.npmjs.org/
       - run: npm install
+      - run: npm run install:baileys
       - run: npm run build:baileys
       - run: npm publish
         env:
