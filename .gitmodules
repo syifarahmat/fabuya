@@ -1,0 +1,3 @@
+[submodule "Baileys"]
+	path = Baileys
+	url = https://github.com/adiwajshing/Baileys.git

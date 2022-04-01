@@ -1,0 +1,33 @@
+{
+  "name": "fabuya",
+  "version": "0.1.0-alpha.1",
+  "description": "Baileys Whatsapp library wrapper",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p ./Baileys",
+    "prepublish": "npm i -D --prefix ./Baileys"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HanzHaxors/fabuya.git"
+  },
+  "keywords": [
+    "whatsapp",
+    "api",
+    "baileys"
+  ],
+  "author": "Hanz <hanz@godot.id>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/HanzHaxors/fabuya/issues"
+  },
+  "homepage": "https://github.com/HanzHaxors/fabuya#readme",
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "pino": "^7.9.2",
+    "pino-abstract-transport": "^0.5.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
