@@ -25,6 +25,7 @@ jobs:
       - run: mv ./Baileys/lib ./baileys-lib
       - run: mv ./Baileys/WAProto ./WAProto
       - run: mv ./Baileys/WABinary ./WABinary
+      - run: mv ./Baileys/WASignalGroup ./WASignalGroup
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
