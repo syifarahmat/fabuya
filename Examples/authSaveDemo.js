@@ -1,10 +1,22 @@
 const fabuya = require('../index');
 const fabuyaStorage = require('../storage');
+const AuthSave = require('../auth/AuthSave');
 
+const fs = require('fs');
+
+const saveFile = "myClient.save";
 const store = new fabuyaStorage.memory();
+let saves = undefined;
+
+if (fs.existsSync(saveFile)) {
+	saves = AuthSave.fromFile(saveFile);
+} else {
+	saves = new AuthSave(saveFile);
+}
 
 fabuya.create('ClientName', {
-	printQRInTerminal: false
+	printQRInTerminal: false,
+	auth: saves.state
 }).then(client => {
 	client.onQRUpdated((ascii) => {
 		console.log(ascii);
@@ -27,7 +39,7 @@ fabuya.create('ClientName', {
 		if (data.level < 40) return;
 
 		// Log all important data
-		console.log(data.msg);
+		console.log(data);
 	});
 
 	store.bindClient(client);

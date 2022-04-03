@@ -107,5 +107,7 @@ dist
 *~
 
 # Baileys
-baileys-lib
-auth_info*
+baileys-lib/
+auth-info*
+*-store.json
+WA*

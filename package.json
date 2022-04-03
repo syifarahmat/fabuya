@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/HanzHaxors/fabuya#readme",
   "dependencies": {
+    "@adiwajshing/keyed-db": "^0.2.4",
     "@hapi/boom": "^9.1.4",
     "axios": "^0.26.1",
     "curve25519-js": "^0.0.4",

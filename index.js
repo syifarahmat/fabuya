@@ -13,6 +13,7 @@ const makeWASocket = Baileys.default;
 
 async function create(clientName, config={}) {
 	// TODO: Default config filling
+	config.clientName = clientName;
 	// Fill with latest version if version is not defined
 	if (config.version === undefined) {
 		// Get latest Whatsapp version
@@ -44,6 +45,8 @@ class Client {
 		// Class variables
 		// Saves config
 		this.config = config;
+		// Set client name
+		this.clientName = config.clientName;
 		// Create event emitter
 		this.ev = ev;
 		this.events = [];
