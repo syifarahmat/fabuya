@@ -11,6 +11,9 @@ From NPM
 npm install --save fabuya
 ```
 
+# Documentation
+https://hanzhaxors.github.com/fabuya/
+
 ## Power Up New Client
 ```js
 const fabuya = require('fabuya');
