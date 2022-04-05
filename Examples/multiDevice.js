@@ -1,5 +1,5 @@
 const fabuya = require('../index');
-const fabuyaStorage = require('../storage');
+const fabuyaStorage = fabuya.storage;
 
 const store = new fabuyaStorage.memory();
 

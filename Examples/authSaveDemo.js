@@ -1,6 +1,6 @@
 const fabuya = require('../index');
-const fabuyaStorage = require('../storage');
-const AuthSave = require('../auth/AuthSave');
+const fabuyaStorage = fabuya.storage;
+const AuthSave = fabuya.auth.AuthSave;
 
 const fs = require('fs');
 

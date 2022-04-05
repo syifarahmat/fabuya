@@ -4,10 +4,13 @@ const stream = require('stream');
 const Baileys = require('./baileys-lib');
 const QR = require('qrcode-terminal');
 
-const logger = require('./logger');
-const utils = require('./utils');
+const auth = require('./src/auth');
+const storage = require('./src/storage');
 
-const Message = require('./Message');
+const logger = require('./src/logger');
+const utils = require('./src/utils');
+
+const Message = require('./src/Message');
 
 const makeWASocket = Baileys.default;
 
@@ -211,5 +214,14 @@ class Client {
 module.exports = {
 	create,
 	forever,
-	Client
+	Client,
+
+	auth,
+	storage,
+	logger,
+	utils,
+
+	classes: {
+		Message
+	}
 };
