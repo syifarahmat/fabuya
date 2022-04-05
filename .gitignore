@@ -112,3 +112,6 @@ auth-info*
 *-store.json
 WA*
 *.save
+
+# JSDoc
+docs/
