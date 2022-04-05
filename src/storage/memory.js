@@ -1,4 +1,4 @@
-let Baileys = require('../baileys-lib');
+let Baileys = require('../../baileys-lib');
 
 class memory {
 	constructor() {

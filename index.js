@@ -10,7 +10,7 @@ const storage = require('./src/storage');
 const logger = require('./src/logger');
 const utils = require('./src/utils');
 
-const Message = require('./src/Message');
+const Messages = require('./src/Message');
 
 const makeWASocket = Baileys.default;
 
@@ -243,21 +243,85 @@ class Client {
 			// `messages` array
 			for (const _msg of messages) {
 				// Send them to user callback
-				// TODO: Construct Message class
-				let msg = Message.from(_msg);
+				let msg = new Messages.Message(_msg);
+				let inner = _msg.message;
+
+				// Basic text message
+				if (_msg.conversation || inner.extendedTextMessage) {
+					msg = new Messages.TextMessage(_msg);
+				}
+
 				msg.me = this;
+				msg.from = msg.from || this.sock.user.id;
 				cb(msg);
 			}
 		});
 
 		/**
-		 * This event is emitted when new incoming/outgoing message
-		 * is being sent while client is alive.
+		 * This event is emitted when new incoming and outgoing message
+		 * is sent while client is alive.
 		 * This is not chat message, but rather a general network packet
 		 * @event module:fabuya.Client#onmessage
 		 * @param {Message}. msg - The packet message (WIP)
 		 */
-		// TODO: `Message` class should be only for chat messages, `PacketMessage` should be for this
+	}
+
+	// TODO: Docs
+	onIncomingMessage(cb) {
+		this.on('messages.upsert', (data) => {
+			let { messages, type } = data;
+			// First, check if the message are
+			// newly sent while client are alive
+			if (type !== "notify") {
+				// If not, pass
+				return;
+			}
+
+			// Then, iterate each message from
+			// `messages` array
+			for (const _msg of messages) {
+				if (_msg.key.fromMe) {
+					// Reject, this is outgoing message
+					continue;
+				}
+
+			}
+		});
+	}
+
+	// TODO: Docs
+	onOutcomingMessage() {
+		this.on('messages.upsert', (data) => {
+			let { messages, type } = data;
+			// First, check if the message are
+			// newly sent while client are alive
+			if (type !== "notify") {
+				// If not, pass
+				return;
+			}
+
+			// Then, iterate each message from
+			// `messages` array
+			for (const _msg of messages) {
+				if (!_msg.key.fromMe) {
+					// Reject, this is incoming message
+					continue;
+				}
+
+				// Send them to user callback
+				let msg = new Messages.Message(_msg);
+				let inner = _msg.message;
+
+				// Basic text message
+				if (_msg.conversation || inner.extendedTextMessage) {
+					msg = new Messages.TextMessage(_msg);
+				}
+
+				msg.me = this;
+				msg.from = msg.from || this.sock.user.id;
+				cb(msg);
+			}
+		});
 	}
 
 	/**
@@ -304,7 +368,5 @@ module.exports = {
 	logger,
 	utils,
 
-	classes: {
-		Message
-	}
+	Messages
 };

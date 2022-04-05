@@ -1,4 +1,4 @@
-const Baileys = require('../baileys-lib');
+const Baileys = require('../../baileys-lib');
 const fs = require('fs');
 
 
