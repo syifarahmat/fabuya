@@ -1,5 +1,5 @@
-let saves = require('./saves');
+let AuthSave = require('./AuthSave');
 
 module.exports = {
-	saves
+	AuthSave
 };
