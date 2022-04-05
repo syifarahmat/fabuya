@@ -12,7 +12,7 @@ const KEY_MAP = {
 	'sender-key-memory': 'senderKeyMemory'
 };
 
-/**
+/*TODO
  * A function to get key from AuthSave.state.keys
  *
  * @param type {string} the type of the key in dash-case (pre-keys, sender-keys, etc.)
