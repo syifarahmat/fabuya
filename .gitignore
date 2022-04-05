@@ -111,3 +111,4 @@ baileys-lib/
 auth-info*
 *-store.json
 WA*
+*.save
