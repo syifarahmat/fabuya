@@ -12,7 +12,7 @@ npm install --save fabuya
 ```
 
 # Documentation
-https://hanzhaxors.github.com/fabuya/
+https://hanzhaxors.github.io/fabuya/
 
 ## Power Up New Client
 ```js
