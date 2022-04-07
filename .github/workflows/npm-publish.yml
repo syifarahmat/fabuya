@@ -28,7 +28,7 @@ jobs:
         run: |
           npm version ${{ github.event.release.tag_name }} --no-git-tag-version
           git commit -a -m "bump: version bumped to ${{ github.event.release.tag_name }}"
-          git push origin
+          git push origin main
       - run: npm install
       - run: npm run init:baileys
       - run: mv ./Baileys/lib ./baileys-lib
