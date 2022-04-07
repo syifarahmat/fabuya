@@ -120,4 +120,4 @@ class BaseAuthSave {
 	}
 }
 
-module.exports = AuthSave;
+module.exports = BaseAuthSave;
