@@ -6,7 +6,7 @@ Please use [`fabuya.create`](#fabuyacreate) instead.
  - #### reconnect()
    Initiate client reconnection
  - #### async send(to: String, message: String)
-   **to** - Recipient phone number (e.g. +1 234 567 890)
+   **to** - Recipient phone number (e.g. +1 234 567 890)<br>
    **message** - Text to send
 
    This function sends basic text message to the recipient.
@@ -62,7 +62,7 @@ Please use [`fabuya.create`](#fabuyacreate) instead.
 ```
 async fabuya.create(clientName: String, configuration: Object) -> Promise<fabuya.Client>
 ```
-**clientName** - Used for internal processing and session management, useful for middlewares
+**clientName** - Used for internal processing and session management, useful for middlewares<br>
 **configuration** - An extended configuration brought from Baileys' (WIP: implement a class for this)
 
 
