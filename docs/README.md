@@ -33,8 +33,11 @@ npm install fabuya@nightly
 const fabuya = require('fabuya');
 ```
 
+### Submodule (Categories)
+ - [auth](./auth.md) - Solves your authentication needs
+
 ### Classes
- - [Client](./Client.md#fabuyaclient)
+ - [Client](./Client.md#fabuyaclient) - Multi device whatsapp client
 
 ### Functions
  - [create](./Client.md#fabuyacreate)(clientName: String, configuration: Object) -> [Client](./Client.md#fabuyaclient)
