@@ -25,10 +25,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
       - name: 'Change version'
-        uses: reedyuk/npm-version@1.1.1
-        with:
-          version: ${{ github.event.release.tag_name }}
-          git-tag-version: 'true'
+        run: |
+          npm version ${{ github.event.release.tag_name }}
+          git commit -a -m "bump: version bumped to ${{ github.event.release.tag_name }}"
+          git push origin
       - run: npm install
       - run: npm run init:baileys
       - run: mv ./Baileys/lib ./baileys-lib
