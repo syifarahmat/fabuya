@@ -1,4 +1,5 @@
 ### fabuya.Client
+A multi device (MD) whatsapp client.
 It is recommended not to initiate this class using the `new` keyword.
 Please use [`fabuya.create`](#fabuyacreate) instead.
 
