@@ -110,7 +110,7 @@ class BaseAuthSave {
 			fs.readFileSync(filename, { encoding: 'utf-8' }),
 			Baileys.BufferJSON.reviver
 		);
-		let as = new AuthSave();
+		let as = new BaseAuthSave();
 
 		as.creds = data.creds;
 		as.keys = data.keys;
