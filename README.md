@@ -10,9 +10,10 @@ From NPM
 ```sh
 npm install --save fabuya
 ```
+More version on the documentation below
 
 # Documentation
-https://hanzhaxors.github.io/fabuya/
+https://github.com/HanzHaxors/fabuya/tree/main/docs
 
 ## Power Up New Client
 ```js
