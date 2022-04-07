@@ -20,6 +20,10 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
           registry-url: https://registry.npmjs.org/
+      - name: 'Setup Git Author'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
       - name: 'Change version'
         uses: reedyuk/npm-version@1.1.1
         with:
