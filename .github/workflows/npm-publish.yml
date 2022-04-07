@@ -20,6 +20,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
           registry-url: https://registry.npmjs.org/
+      - name: 'Change version'
+        uses: reedyuk/npm-version@1.1.1
+        with:
+          version: ${{ github.event.release.tag_name }}
+          git-tag-version: 'true'
       - run: npm install
       - run: npm run init:baileys
       - run: mv ./Baileys/lib ./baileys-lib
@@ -27,11 +32,6 @@ jobs:
       - run: mv ./Baileys/WABinary ./WABinary
       - run: cp ./WABinary/Constants.js ./baileys-lib/Constants.js
       - run: mv ./Baileys/WASignalGroup ./WASignalGroup
-      - name: 'Change version'
-        uses: reedyuk/npm-version@1.1.1
-        with:
-          version: ${{ github.event.release.tag_name }}
-          git-tag-version: 'true'
       - name: Publish rc
         if: ${{ contains(github.event.release.tag_name, 'rc') }}
         run: npm publish --tag rc
