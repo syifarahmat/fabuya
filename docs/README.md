@@ -34,7 +34,7 @@ const fabuya = require('fabuya');
 ```
 
 ### Classes
- - [Client](./Client.md)
+ - [Client](./Client.md#fabuyaclient)
 
 ### Functions
- - [create](./Client.md)(clientName: String, configuration: Object) -> [Client](./Client.md)
+ - [create](./Client.md#fabuyacreate)(clientName: String, configuration: Object) -> [Client](./Client.md#fabuyaclient)

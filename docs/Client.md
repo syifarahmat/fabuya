@@ -1,6 +1,6 @@
 ### fabuya.Client
 It is recommended not to initiate this class using the `new` keyword.
-Please use [`fabuya.create`](#create) instead.
+Please use [`fabuya.create`](#fabuyacreate) instead.
 
  - #### reconnect()
    Initiate client reconnection
