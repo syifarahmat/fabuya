@@ -32,6 +32,23 @@ jobs:
         with:
           version: ${{ github.event.release.tag_name }}
           git-tag-version: 'true'
-      - run: npm publish
+      - name: Publish rc
+        if: ${{ contains(github.event.release.tag_name, 'rc') }}
+        run: npm publish --tag rc
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Publish beta
+        if: ${{ contains(github.event.release.tag_name, 'beta') }}
+        run: npm publish --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Publish nightly
+        if: ${{ contains(github.event.release.tag_name, 'nightly') }}
+        run: npm publish --tag nightly
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Publish stable
+        if: ${{ !contains(github.event.release.tag_name, 'rc') && !contains(github.event.release.tag_name, 'beta') && !contains(github.event.release.tag_name, 'nightly') }}
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
