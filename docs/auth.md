@@ -22,6 +22,9 @@ and helps you to save it to a file.
 
 ### fabuya.auth.BaseAuthSave
 
+ - #### new BaseAuthSave(filename: String)
+   **filename** - The destination file to save auth state on. Decoration only,
+   BaseAuthSave does not save your authentication credentials anywhere.
  - #### .filename
    **Type** String
 
