@@ -170,7 +170,7 @@ class Client {
 				let inner = _msg.message;
 
 				// Basic text message
-				if (_msg.conversation || inner.extendedTextMessage) {
+				if (inner?.conversation || inner?.extendedTextMessage) {
 					msg = new Messages.TextMessage(_msg);
 				}
 
