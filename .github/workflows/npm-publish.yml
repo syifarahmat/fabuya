@@ -27,6 +27,11 @@ jobs:
       - run: mv ./Baileys/WABinary ./WABinary
       - run: cp ./WABinary/Constants.js ./baileys-lib/Constants.js
       - run: mv ./Baileys/WASignalGroup ./WASignalGroup
+      - name: 'Change version'
+        uses: reedyuk/npm-version@1.1.1
+        with:
+          version: ${{ github.event.release.tag_name }}
+          git-tag-version: 'true'
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
