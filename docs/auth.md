@@ -40,3 +40,34 @@ and helps you to save it to a file.
    A synchronous function to create `BaseAuthSave` class from an existing
    file. Can only accepts a file that are created using
    [`AuthSave.save()`](#save) method or having the same format.
+
+#### How To Extends BaseAuthSave
+In order to create your own auth saver, you can extend BaseAuthSave.
+The bare minimum method you need to implement is `save()`, here's how.
+
+```js
+class MySaver extends BaseAuthSave {
+	constructor(filename) {
+		// Initiate BaseAuthSave's properties
+		super(filename);
+	}
+
+	/**
+	 * Here, you need to implement this.
+	 * save() is a synchronous class method that will be called
+	 * by Baileys whenever there's a key change.
+	 */
+	save() {
+		// Implement your saving algorithm/procedure here
+
+		// For example, saving to a REST API like this:
+		await fetch("http://localhost:8080/api/auth/save", {
+			method: "POST",
+			headers: { 'Content-Type': 'application/json' }
+			body: { stateString: this.stateAsJSON() },
+		});
+
+		// Happy hacking!
+	}
+}
+```
