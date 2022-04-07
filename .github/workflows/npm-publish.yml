@@ -20,15 +20,19 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
           registry-url: https://registry.npmjs.org/
-      - name: 'Setup Git Author'
+      - name: Setup Git Author
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-      - name: 'Change version'
+      - name: Change version
         run: |
           npm version ${{ github.event.release.tag_name }} --no-git-tag-version
           git commit -a -m "bump: version bumped to ${{ github.event.release.tag_name }}"
-          git push origin main
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
       - run: npm install
       - run: npm run init:baileys
       - run: mv ./Baileys/lib ./baileys-lib
