@@ -34,7 +34,9 @@ class TextMessage extends Message {
 		await this.me.sock.sendMessage(this.from, { text: response });
 	}
 
-	// TODO: quote method
+	async quote(response) {
+		await this.me.sock.sendMessage(this.from, { text: response }, { quoted: this.raw });
+	}
 }
 
 module.exports = TextMessage;
