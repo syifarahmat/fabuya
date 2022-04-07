@@ -25,6 +25,16 @@ class AuthSave extends BaseAuthSave {
 			)
 		);
 	}
+
+	static fromFile(filename) {
+		let base = BaseAuthSave.fromFile(filename);
+		let auth = new AuthSave(filename);
+
+		auth.creds = base.creds;
+		auth.keys = base.keys;
+
+		return auth;
+	}
 }
 
 module.exports = AuthSave;
