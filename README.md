@@ -45,3 +45,14 @@ fabuya.create('clientName', config).then((client) => {
 // omit this if you have other implementation
 fabuya.forever();
 ```
+
+## Found an Issue?
+Or simply want to add a new feature you have been dreaming of?<br>
+Submit a new Issue with the correct formation and relax.
+
+## For Developers
+Want to contribute to the project? Easy,
+1. Find an issue to start with
+2. Fork the project
+3. Make PR
+4. Get merged.
