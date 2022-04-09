@@ -22,7 +22,7 @@ async function create(clientName, config={}) {
 	if (config.version === undefined) {
 		// Get latest Whatsapp version
 		// TODO: Maybe try caching?
-		let version = await Baileys.fetchLatestBaileysVersion();
+		let version = await utils.getWhatsappVersion();
 		config.version = version.version;
 	}
 
