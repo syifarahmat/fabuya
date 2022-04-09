@@ -8,7 +8,7 @@ async function getWhatsappVersion() {
 	let res = await axios.get("https://web.whatsapp.com/check-update?version=2.2210.9&platform=web");
 
 	if (res.status == 200) {
-		let data = JSON.parse(res.data);
+		let data = res.data;
 		let version = data.currentVersion.split('.');
 		return version.map(n => Number(n));
 	}
@@ -31,5 +31,6 @@ function phoneToJid(phone) {
 
 module.exports = {
 	normalizePhoneNumber,
-	phoneToJid
+	phoneToJid,
+	getWhatsappVersion
 };

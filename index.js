@@ -23,7 +23,7 @@ async function create(clientName, config={}) {
 		// Get latest Whatsapp version
 		// TODO: Maybe try caching?
 		let version = await utils.getWhatsappVersion();
-		config.version = version.version;
+		config.version = version;
 	}
 
 	// Make new Whatsapp socket
