@@ -27,14 +27,6 @@ jobs:
       - name: Change version
         run: |
           npm version ${{ github.event.release.tag_name }} --no-git-tag-version
-          git commit -a -m "bump: version bumped to ${{ github.event.release.tag_name }}"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          force: true
-          tags: false
       - run: npm install
       - run: npm run init:baileys
       - run: mv ./Baileys/lib ./baileys-lib
@@ -44,12 +36,16 @@ jobs:
       - run: mv ./Baileys/WASignalGroup ./WASignalGroup
       - name: Publish rc
         if: ${{ contains(github.event.release.tag_name, 'rc') }}
-        run: npm publish --tag rc
+        run: |
+          npm publish --tag rc
+          git commit -a -m "bump: version bumped to ${{ github.event.release.tag_name }}"
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Publish beta
         if: ${{ contains(github.event.release.tag_name, 'beta') }}
-        run: npm publish --tag beta
+        run: |
+          npm publish --tag beta
+          git commit -a -m "bump: version bumped to ${{ github.event.release.tag_name }}"
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Publish nightly
@@ -59,6 +55,15 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Publish stable
         if: ${{ !contains(github.event.release.tag_name, 'rc') && !contains(github.event.release.tag_name, 'beta') && !contains(github.event.release.tag_name, 'nightly') }}
-        run: npm publish
+        run: |
+          npm publish
+          git commit -a -m "bump: version bumped to ${{ github.event.release.tag_name }}"
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true
+          tags: false
