@@ -8,7 +8,7 @@ Simply put a client up and assign event handlers, that's it!
 ## Installation
 From NPM
 ```sh
-npm install --save fabuya
+npm install --save fabuya@beta
 ```
 More version on the documentation below
 
