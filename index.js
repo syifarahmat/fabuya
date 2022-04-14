@@ -199,6 +199,18 @@ class Client {
 					continue;
 				}
 
+				// Send them to user callback
+				let msg = new Messages.Message(_msg);
+				let inner = _msg.message;
+
+				// Basic text message
+				if (_msg.conversation || inner.extendedTextMessage) {
+					msg = new Messages.TextMessage(_msg);
+				}
+
+				msg.me = this;
+				msg.from = msg.from || this.sock.user.id;
+				cb(msg);
 			}
 		});
 	}
