@@ -8,6 +8,8 @@ class Message {
 		this.id = raw.key.id;
 		this.isMe = raw.key.fromMe;
 		this.from = getSender(raw);
+		// TODO: this.chat
+		// TODO: this.from: User = null;
 		this.me = null;
 
 		this.timestamp = raw.messageTimestamp;

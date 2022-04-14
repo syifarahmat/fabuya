@@ -37,6 +37,28 @@ class TextMessage extends Message {
 	async quote(response) {
 		await this.me.sock.sendMessage(this.from, { text: response }, { quoted: this.raw });
 	}
+
+	async read() {
+		await this.me.readMessages([this.raw.key]);
+	}
+
+	async delete(forEveryone=true) {
+		if (forEveryone) {
+			await this.me.sock.sendMessage(this.from, { delete: this.raw.key });
+		} else {
+			throw "Deleting message for yourself is not yet implemented.";
+			/*await this.me.sock.chatModify({
+				clear: {
+					message: {
+						id: this.id,
+						fromMe: this.isMe
+					}
+				},
+				this.chat.id,
+				[]
+			});*/ // TODO: Delete message for myself
+		}
+	}
 }
 
 module.exports = TextMessage;

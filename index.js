@@ -75,6 +75,25 @@ class Client {
 		await this.sock.sendMessage(jid, { text: message });
 	}
 
+	async readMessages(keys) {
+		// Input normalization
+		if (!Array.isArray(keys)) {
+			throw "keys must be messages array or keys array";
+		}
+
+		keys = keys.map((k) => {
+			if (k.key) {
+				return k.key;
+			} else if (k.id && k.remoteJid) {
+				return k;
+			} else {
+				throw "Invalid message key driven for read receipt";
+			}
+		});
+
+		await this.sock.readMessages(keys);
+	}
+
 	/* Events */
 	on(event, cb) {
 		// Read https://nodejs.dev/learn/the-nodejs-events-module#emitteron
@@ -204,7 +223,7 @@ class Client {
 				let inner = _msg.message;
 
 				// Basic text message
-				if (_msg.conversation || inner.extendedTextMessage) {
+				if (inner?.conversation || inner?.extendedTextMessage) {
 					msg = new Messages.TextMessage(_msg);
 				}
 
@@ -215,7 +234,7 @@ class Client {
 		});
 	}
 
-	onOutcomingMessage() {
+	onOutcomingMessage(cb) {
 		this.on('messages.upsert', (data) => {
 			let { messages, type } = data;
 			// First, check if the message are
@@ -238,7 +257,7 @@ class Client {
 				let inner = _msg.message;
 
 				// Basic text message
-				if (_msg.conversation || inner.extendedTextMessage) {
+				if (inner?.conversation || inner?.extendedTextMessage) {
 					msg = new Messages.TextMessage(_msg);
 				}
 
