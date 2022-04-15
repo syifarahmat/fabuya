@@ -163,12 +163,15 @@ class Client {
 	}
 
 	onQRScanned(cb) {
-		// TODO: Work on this
 		this.ev.on('qrscanned', cb);
 	}
 
 	onLoggedIn(cb) {
 		this.ev.on('loggedin', cb);
+	}
+
+	onLoggedOut(cb) {
+		this.ev.on('loggedout', cb);
 	}
 
 	onMessage(cb) {

@@ -36,6 +36,8 @@ Please use [`fabuya.create`](#fabuyacreate) instead.
    **callback** - Called when QR code has been scanned
  - #### onLoggedIn(callback: Function)
    **callback** - Called when Baileys core library successfully log your account
+ - #### onLoggedOut(callback: Function)
+   **callback** - Called when Client logged out either from phone or script
  - #### onMessage(callback: Function(msg: Message|[TextMessage]))
    **callback**
     - **msg** - A [Message](#Message) object or [TextMessage](#TextMessage) object when applicable
