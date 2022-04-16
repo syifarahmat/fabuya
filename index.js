@@ -55,7 +55,7 @@ class Client {
 		this.sock = makeWASocket(config);
 
 		// Bind necessary Baileys events
-		this.#bindInitEvents();
+		this.bindInitEvents();
 	}
 
 	/* Features */
@@ -65,7 +65,7 @@ class Client {
 		this.config.auth = this.sock.authState;
 		// Create new sock instance with new auth
 		this.sock = makeWASocket(this.config);
-		this.#bindEvents();
+		this.bindEvents();
 	}
 	logout() {}
 	loadAccount() {}
@@ -103,14 +103,14 @@ class Client {
 		this.sock.ev.on(event, cb);
 	}
 
-	#bindEvents() {
+	bindEvents() {
 		// Bind every Baileys event that has been binded before
 		for (const handler of this.events) {
 			this.sock.ev.on(handler.event, handler.cb);
 		}
 	}
 
-	#bindInitEvents() {
+	bindInitEvents() {
 		// Emits logged out, logged in, reconnect events
 		this.on('connection.update', (update) => {
 			const { connection, isNewLogin, lastDisconnect } = update;
