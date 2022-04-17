@@ -128,7 +128,12 @@ class Client {
 			} else if (connection == "close") {
 				// Either reconnect or logged out
 				let DisconnectReason = Baileys.DisconnectReason;
-				let statusCode = lastDisconnect.error?.output?.statusCode;
+				let t = lastDisconnect;
+				let statusCode = 0;
+
+				if (t && t.error && t.error.output && t.error.output.statusCode) {
+					statusCode = t.error.output.statusCode;
+				}
 
 				if (statusCode === DisconnectReason.restartRequired) {
 					// Reconnect required
@@ -192,8 +197,10 @@ class Client {
 				let inner = _msg.message;
 
 				// Basic text message
-				if (inner?.conversation || inner?.extendedTextMessage) {
-					msg = new Messages.TextMessage(_msg);
+				if (inner) {
+					if (inner.conversation || inner.extendedTextMessage) {
+						msg = new Messages.TextMessage(_msg);
+					}
 				}
 
 				msg.me = this;
@@ -226,8 +233,10 @@ class Client {
 				let inner = _msg.message;
 
 				// Basic text message
-				if (inner?.conversation || inner?.extendedTextMessage) {
-					msg = new Messages.TextMessage(_msg);
+				if (inner) {
+					if (inner.conversation || inner.extendedTextMessage) {
+						msg = new Messages.TextMessage(_msg);
+					}
 				}
 
 				msg.me = this;
@@ -260,8 +269,10 @@ class Client {
 				let inner = _msg.message;
 
 				// Basic text message
-				if (inner?.conversation || inner?.extendedTextMessage) {
-					msg = new Messages.TextMessage(_msg);
+				if (inner) {
+					if (inner.conversation || inner.extendedTextMessage) {
+						msg = new Messages.TextMessage(_msg);
+					}
 				}
 
 				msg.me = this;
