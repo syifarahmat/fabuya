@@ -27,6 +27,7 @@
     "@hapi/boom": "^9.1.4",
     "axios": "^0.26.1",
     "curve25519-js": "^0.0.4",
+    "futoin-hkdf": "^1.5.0",
     "libsignal": "^2.0.1",
     "music-metadata": "^7.12.2",
     "node-cache": "^5.1.2",

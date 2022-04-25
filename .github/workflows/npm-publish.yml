@@ -31,8 +31,6 @@ jobs:
       - run: npm run init:baileys
       - run: mv ./Baileys/lib ./baileys-lib
       - run: mv ./Baileys/WAProto ./WAProto
-      - run: mv ./Baileys/WABinary ./WABinary
-      - run: cp ./WABinary/Constants.js ./baileys-lib/Constants.js
       - run: mv ./Baileys/WASignalGroup ./WASignalGroup
       - name: Publish rc
         if: ${{ contains(github.event.release.tag_name, 'rc') }}
