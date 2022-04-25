@@ -142,6 +142,9 @@ class Client {
 				} else if (statusCode === DisconnectReason.loggedOut) {
 					// User logged out the device
 					this.ev.emit('loggedout');
+				} else if (statusCode === 515) {
+					// Stream error
+					this.reconnect();
 				}
 			}
 		});
