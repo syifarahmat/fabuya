@@ -1,3 +1,8 @@
+const MessageType = {
+	BASIC: 0,
+	TEXT: 1
+};
+
 class Message {
 	constructor(raw) {
 		this.raw = raw;
@@ -15,6 +20,16 @@ class Message {
 
 		this.timestamp = raw.messageTimestamp;
 	}
+
+	static fromJSON(s) {
+		let data = s;
+		if (typeof(data) === 'string') {
+			data = JSON.parse(s);
+		}
+
+		return new Message(data);
+	}
+	// TODO: implement fromJSON to TextMessage and Chat.getLatestMessage
 }
 
 module.exports = Message;
