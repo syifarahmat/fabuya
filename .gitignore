@@ -112,3 +112,4 @@ auth-info*
 *-store.json
 WA*
 *.save
+ClientNameSaveDir/
