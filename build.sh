@@ -1,13 +1,9 @@
 echo Please wait, this might takes minutes
 
 # build Baileys
-echo NOTE: You need to run \`npm run init:baileys\` before running this
-npm run build:baileys
+npm run init:baileys
 
 # Copy Baileys runtime dependencies
+cp -rf ./Baileys/lib ./baileys-lib
 cp -rf ./Baileys/WAProto ./WAProto
-cp -rf ./Baileys/WABinary ./WABinary
-cp -rf ./WABinary/Constants.js ./baileys-lib/Constants.js
 cp -rf ./Baileys/WASignalGroup ./WASignalGroup
-
-# TODO: update Baileys and see the effect
