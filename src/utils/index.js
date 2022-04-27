@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const Chat = require('./Chat');
+
 /**
  * Instead of relying on Baileys' method,
  * lets fetch directly from whatsapp
@@ -32,5 +34,6 @@ function phoneToJid(phone) {
 module.exports = {
 	normalizePhoneNumber,
 	phoneToJid,
-	getWhatsappVersion
+	getWhatsappVersion,
+	...Chat
 };
