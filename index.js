@@ -10,7 +10,9 @@ const storage = require('./src/storage');
 const logger = require('./src/logger');
 const utils = require('./src/utils');
 
+// Whatsapp objects
 const Messages = require('./src/Message');
+const Chat = require('./src/Chat');
 
 const makeWASocket = Baileys.default;
 
@@ -182,7 +184,7 @@ class Client {
 		this.ev.on('loggedout', cb);
 	}
 
-	onMessage(cb) {
+	onMessage(cb, mode=2) {
 		this.on('messages.upsert', (data) => {
 			let { messages, type } = data;
 			// First, check if the message are
@@ -195,6 +197,15 @@ class Client {
 			// Then, iterate each message from
 			// `messages` array
 			for (const _msg of messages) {
+				// Check callback mode
+				if (mode === 1 && _msg.key.fromMe === true) {
+					// Expected incoming message, but we get outcoming one
+					continue;
+				} else if (mode === 0 && _msg.key.fromMe === false) {
+					// Expected outcoming message, but we get incoming one
+					continue;
+				} // mode === 2 ignore, its a wildcard.
+
 				// Send them to user callback
 				let msg = new Messages.Message(_msg);
 				let inner = _msg.message;
@@ -206,83 +217,42 @@ class Client {
 					}
 				}
 
+				// Initialize reference variables
 				msg.me = this;
 				msg.from = msg.from || this.sock.user.id;
+
+				// Initialize Chat reference
+				let chat;
+				if (utils.isJidGroupChat(_msg.key.remoteJid)) {
+					chat = new Chat.Group();
+
+					let groupMeta = utils.parseGroupJid(_msg.key.remoteJid);
+					chat.creator = groupMeta.creator;
+					chat.createdAt = groupMeta.createdAt;
+					// TODO: Get Group Name
+				} else if (utils.isJidRegularChat(_msg.key.remoteJid)) {
+					chat = new Chat.Chat();
+					// TODO: Get Chat Name
+					//chat.name = msg.senderName;
+				}
+
+				chat.id = _msg.key.remoteJid;
+				chat.me = this;
+				// Put reference
+				msg.chat = chat;
+
+				// Send to callback
 				cb(msg);
 			}
 		});
 	}
 
 	onIncomingMessage(cb) {
-		this.on('messages.upsert', (data) => {
-			let { messages, type } = data;
-			// First, check if the message are
-			// newly sent while client are alive
-			if (type !== "notify") {
-				// If not, pass
-				return;
-			}
-
-			// Then, iterate each message from
-			// `messages` array
-			for (const _msg of messages) {
-				if (_msg.key.fromMe) {
-					// Reject, this is outgoing message
-					continue;
-				}
-
-				// Send them to user callback
-				let msg = new Messages.Message(_msg);
-				let inner = _msg.message;
-
-				// Basic text message
-				if (inner) {
-					if (inner.conversation || inner.extendedTextMessage) {
-						msg = new Messages.TextMessage(_msg);
-					}
-				}
-
-				msg.me = this;
-				msg.from = msg.from || this.sock.user.id;
-				cb(msg);
-			}
-		});
+		this.onMessage(cb, 1);
 	}
 
 	onOutcomingMessage(cb) {
-		this.on('messages.upsert', (data) => {
-			let { messages, type } = data;
-			// First, check if the message are
-			// newly sent while client are alive
-			if (type !== "notify") {
-				// If not, pass
-				return;
-			}
-
-			// Then, iterate each message from
-			// `messages` array
-			for (const _msg of messages) {
-				if (!_msg.key.fromMe) {
-					// Reject, this is incoming message
-					continue;
-				}
-
-				// Send them to user callback
-				let msg = new Messages.Message(_msg);
-				let inner = _msg.message;
-
-				// Basic text message
-				if (inner) {
-					if (inner.conversation || inner.extendedTextMessage) {
-						msg = new Messages.TextMessage(_msg);
-					}
-				}
-
-				msg.me = this;
-				msg.from = msg.from || this.sock.user.id;
-				cb(msg);
-			}
-		});
+		this.onMessage(cb, 0);
 	}
 
 	onReconnect(cb) {
