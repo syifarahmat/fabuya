@@ -6,8 +6,6 @@ npm run build:baileys
 
 # Copy Baileys runtime dependencies
 cp -rf ./Baileys/WAProto ./WAProto
-cp -rf ./Baileys/WABinary ./WABinary
-cp -rf ./WABinary/Constants.js ./baileys-lib/Constants.js
 cp -rf ./Baileys/WASignalGroup ./WASignalGroup
 
 # TODO: update Baileys and see the effect

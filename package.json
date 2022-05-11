@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build:baileys": "tsc -p ./Baileys --outDir ./baileys-lib",
-    "init:baileys": "npm i -D --prefix ./Baileys"
+    "init:baileys": "npm i -D --prefix ./Baileys",
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",
