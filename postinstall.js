@@ -3,7 +3,6 @@ const { spawnSync } = require('child_process');
 
 // Initialize git submodule
 spawnSync('git', ['submodule',  'update', '--init', '-N', 'Baileys']);
-spawnSync('npm', ['install', '-D']);
 spawnSync('npm', ['install', '-D', '--prefix ./Baileys']);
 
 // Move directories
