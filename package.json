@@ -33,7 +33,7 @@
     "music-metadata": "^7.12.2",
     "node-cache": "^5.1.2",
     "pino": "^7.9.2",
-    "protobufjs": "^6.11.2",
+    "protobufjs": "~6.11.2",
     "qrcode-terminal": "^0.12.0",
     "ws": "^8.5.0"
   },
