@@ -19,7 +19,7 @@ console.log('[i] Initializing Git');
 spawnSync('git', ['init'], opts);
 spawnSync('git', ['submodule', 'add', 'https://github.com/adiwajshing/Baileys.git', 'Baileys'], opts);
 console.log('[i] Updating submodule');
-let res1 = spawnSync('git', ['update-index',  '--cache-info 160000', BAILEYS_HASH, 'Baileys'], opts);
+let res1 = spawnSync('git', ['update-index',  '--cacheinfo 160000', BAILEYS_HASH, 'Baileys'], opts);
 console.log('[i] Installing submodule dependencies on', __dirname + '/Baileys');
 let res2 = spawnSync('npm', ['install', '-D', '--prefix', __dirname + '/Baileys'], opts);
 console.dir(res2)
