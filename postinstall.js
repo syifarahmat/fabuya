@@ -11,6 +11,9 @@ let opts = {
 	cwd: __dirname,
 	stdio: ['pipe', process.stdio, process.stderr]
 };
+
+console.log('[i] Initializing Git');
+spawnSync('git', ['init'], opts);
 console.log('[i] Updating submodule');
 let res1 = spawnSync('git', ['submodule',  'update', '--init', '-N', 'Baileys'], opts);
 console.log('[i] Installing submodule dependencies on', __dirname + '/Baileys');
