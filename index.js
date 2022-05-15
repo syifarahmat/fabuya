@@ -27,6 +27,8 @@ async function create(clientName, config={}) {
 		let version = await utils.getWhatsappVersion();
 		config.version = version;
 	}
+	// ALlow second try for keep alive request
+	config.connectTimeoutMs = ((config.keepAliveIntervalMs || 15_000) * 2) + 1_000;
 
 	// Make new Whatsapp socket
 	let client = new Client(config);
@@ -147,6 +149,9 @@ class Client {
 				} else if (statusCode === 515) {
 					// Stream error
 					this.reconnect();
+				} else if (statusCode === 401) {
+					// Unauthorized
+					this.reconnect();
 				}
 			}
 		});
@@ -185,7 +190,7 @@ class Client {
 	}
 
 	onMessage(cb, mode=2) {
-		this.on('messages.upsert', (data) => {
+		this.on('messages.upsert', async (data) => {
 			let { messages, type } = data;
 			// First, check if the message are
 			// newly sent while client are alive
@@ -224,12 +229,7 @@ class Client {
 				// Initialize Chat reference
 				let chat;
 				if (utils.isJidGroupChat(_msg.key.remoteJid)) {
-					chat = new Chat.Group();
-
-					let groupMeta = utils.parseGroupJid(_msg.key.remoteJid);
-					chat.creator = groupMeta.creator;
-					chat.createdAt = groupMeta.createdAt;
-					// TODO: Get Group Name
+					chat = await Chat.Group.fromJid(this.sock, _msg.key.remoteJid);
 				} else if (utils.isJidRegularChat(_msg.key.remoteJid)) {
 					chat = new Chat.Chat();
 					// TODO: Get Chat Name
