@@ -7,7 +7,7 @@ function makeLogger(EventEmitter) {
 			EventEmitter.emit('logs', json);
 		}
 	};
-	const logger = pino({}, destination);
+	const logger = pino({level: 'debug'}, destination);
 
 	return logger;
 }
