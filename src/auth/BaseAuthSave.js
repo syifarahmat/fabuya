@@ -61,11 +61,32 @@ function keysSet(data) {
 		const key = KEY_MAP[_key];
 		// Create property as dictionary if not exists
 		this.keys[key] = this.keys[key] || {};
-		// Copy object A to B (create shallow copy)
+
+		// Overwrite only everything necessary
 		Object.assign(this.keys[key], data[_key]);
 		// Don't do this
 		// keys[key] = data[_key];
 		// because whenever data[_key] is changed, keys[key] will follow
+
+		if (_key === "app-state-sync-key") {
+			// Special truncation case for this mate
+			let keys = Object.keys(data[_key]);
+			for (const k in this.keys[key]) {
+				// XXX: This is not good, better try to figure out how did those AAAAAAJoH stuff works
+				if (!keys.includes(k)) {
+					// If k is not updated, delete it
+					delete this.keys[key][k];
+				}
+			}
+		} else if (_key === "pre-key") {
+			// Special truncation case for this mate
+			let length = Object.keys(this.keys[key]).length;
+			// Apparently, it is 1-indexed
+			// Truncate everything except the last one
+			for (let i = 1; i < length; i++) {
+				delete this.keys[key][String(i)];
+			}
+		}
 	}
 
 	// Save AuthSave
