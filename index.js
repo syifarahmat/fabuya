@@ -25,6 +25,9 @@ async function create(clientName, config={}) {
 		let version = await utils.getWhatsappVersion();
 		config.version = version;
 	}
+	if (config.browserDescription) {
+		config.browserDescription = [clientName, "Chrome", "10.0"];
+	}
 
 	// Make new Whatsapp socket
 	let client = new Client(config);
