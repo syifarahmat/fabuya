@@ -232,8 +232,8 @@ class Client {
 					chat = await Chat.Group.fromJid(this.sock, _msg.key.remoteJid);
 				} else if (utils.isJidRegularChat(_msg.key.remoteJid)) {
 					chat = new Chat.Chat();
-					// TODO: Get Chat Name
-					//chat.name = msg.senderName;
+					// TODO: Get Chat Name from contact
+					chat.name = msg.senderName;
 				}
 
 				chat.id = _msg.key.remoteJid;
