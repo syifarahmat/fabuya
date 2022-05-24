@@ -1,5 +1,5 @@
 # fabuya
-An open-source Baileys WhatsApp API library wrapper. No puppeteer or selenium, faster than ever!
+An open-source [Baileys](https://github.com/adiwajshing/Baileys) WhatsApp API library wrapper. No puppeteer or selenium, faster than ever!
 
 Fabuya wraps Baileys' user-bearable library into user-enjoyable library.
 
