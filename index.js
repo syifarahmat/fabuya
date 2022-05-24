@@ -27,8 +27,12 @@ async function create(clientName, config={}) {
 		let version = await utils.getWhatsappVersion();
 		config.version = version;
 	}
+
 	// ALlow second try for keep alive request
 	config.connectTimeoutMs = ((config.keepAliveIntervalMs || 15_000) * 2) + 1_000;
+	if (config.browserDescription) {
+		config.browserDescription = [clientName, "Chrome", "10.0"];
+	}
 
 	// Make new Whatsapp socket
 	let client = new Client(config);

@@ -27,6 +27,22 @@ the next day it will be published.
 npm install fabuya@nightly
 ```
 
+**From git+https**<br/>
+Pure latest push from repository.
+```sh
+npm install git+https://github.com/HanzHaxors/fabuya.git
+```
+
+**Building Source**<br/>
+Good for developers.
+```sh
+# If you didn't clone the repo using --recursive, uncomment two lines below
+#rm Baileys/*
+#git submodule update --init -N Baileys
+
+npm install
+```
+
 ## The Fabuya Package
 ### CommonJS Import
 ```js
