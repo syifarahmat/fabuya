@@ -5,6 +5,8 @@ Fabuya wraps Baileys' user-bearable library into user-enjoyable library.
 
 Simply put a client up and assign event handlers, that's it!
 
+# WARNING: fabuya IS NOT PRODUCTION READY, UNSTABLE, AND IN UNDER ACTIVE DEVELOPMENT.
+
 ## Installation
 From NPM
 ```sh
