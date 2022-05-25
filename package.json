@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "example.basic": "npx ts-node examples/basic.ts",
-    "build.baileys": "npx tsc -p ./Baileys/tsconfig.json",
+    "build.baileys": "npm --prefix Baileys install -D",
     "postinstall": "node postinstall.js"
   },
   "repository": {
