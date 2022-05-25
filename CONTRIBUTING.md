@@ -27,7 +27,7 @@ maintainers explore the log precisely. By how? Don't combine PR commits into
 one, this confuse maintainers when exploring. Especially when doing git blame
 or bisecting.
 
-4. Don't worry about JavaScript format
+4. Don't worry about code style
 
 When your format is not like what the code base is, reviewer will reminds you
 and you need to change them in order to get your PR merged.
