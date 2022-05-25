@@ -1,1 +1,1 @@
-export * from '../Baileys/src/index'
+export * from '../Baileys'
