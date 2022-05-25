@@ -39,7 +39,7 @@ fabuya.create('clientName', config).then((client) => {
 	// includes system messages
 	client.onMessage((msg) => {
 		console.log("[i] New message: ", msg.content);
-		msg.reply("Hello!");
+		//msg.reply("Hello!");
 	});
 });
 
