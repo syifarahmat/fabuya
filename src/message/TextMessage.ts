@@ -1,4 +1,4 @@
-import type { WAMessage, WAMessageContent } from '../../Baileys'
+import type { WAMessage, WAMessageContent } from '../Baileys'
 
 import { Message } from './Message'
 import type { MessageT } from './Message'

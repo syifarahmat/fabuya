@@ -1,4 +1,4 @@
-import type { GroupMetadata } from '../../Baileys'
+import type { GroupMetadata } from '../Baileys'
 
 import { Chat } from './Chat'
 import type { ChatT } from './Chat'
