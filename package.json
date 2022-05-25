@@ -2,10 +2,10 @@
   "name": "fabuya",
   "version": "0.1.0-beta.6",
   "description": "Baileys Whatsapp library wrapper",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build:baileys": "tsc -p ./Baileys --outDir ./baileys-lib",
-    "init:baileys": "npm i -D --prefix ./Baileys",
+    "example.basic": "npx ts-node examples/basic.ts",
     "postinstall": "node postinstall.js"
   },
   "repository": {
@@ -38,6 +38,11 @@
     "ws": "^8.5.0"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^7.1.1"
-  }
+    "jsdoc-to-markdown": "^7.1.1",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
+  },
+  "files": [
+    "/dist"
+  ]
 }
