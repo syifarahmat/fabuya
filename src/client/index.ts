@@ -35,6 +35,7 @@ export class Client {
 
 	bindInitEvents: () => void;
 	bindEvents: () => void;
+	on: (event: string, cb: any) => void;
 	onQRUpdated: (cb: ((qr: string, data: string | object) => void)) => void;
 	onQRScanned: (cb: (() => void)) => void;
 	onLoggedIn: (cb: (() => void)) => void;
@@ -78,6 +79,11 @@ Client.prototype.bindInitEvents = function bindInitEvents(): void {
 //////////////////////////////////////////
 // EVENT LISTENERS
 //////////////////////////////////////////
+Client.prototype.on = function on(event: string, cb: any) {
+	this.events.push({event, cb});
+	this.sock.ev.on(event cb);
+};
+
 Client.prototype.onQRUpdated = function onQRUpdated(cb: ((qr: string, data: string | object) => void)) {
 	this.on('connection.update', ({ qr }) => {
 		if (!qr) return;
