@@ -1,2 +1,2 @@
-export * from '../Baileys/src/'
-export makeWASocket from '../Baileys/src/'
+export * from '../Baileys/'
+export makeWASocket from '../Baileys/'
