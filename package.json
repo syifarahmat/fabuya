@@ -7,7 +7,7 @@
   "scripts": {
     "example.basic": "npx ts-node examples/basic.ts",
     "build.baileys": "npm --prefix Baileys install -D",
-    "prepare": "node postinstall.js"
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
   "files": [
     "/dist",
     "/Baileys",
+    "/Baileys/lib",
     "postinstall.js"
   ]
 }

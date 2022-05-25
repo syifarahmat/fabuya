@@ -10,8 +10,15 @@ if (process.env.GITHUB_ACTIONS) {
         console.log('[i] GitHub Action detected, skipping post-install.');
         process.exit(0);
 }
+let isnpm = fs.existsSync(path.resolve(__dirname, './dist/'));
 let isgithttps = fs.existsSync(path.resolve(__dirname, './docs/'));
 let isbaileysinited = fs.existsSync(path.resolve(__dirname, './Baileys/README.md'));
+
+if (isnpm) {
+	// Npm package will have pre compiled library
+	console.log("[i] npm install detected. Perhaps your ./dist/ folder not removed?");
+	process.exit(0);
+}
 
 // spawnSync options
 let opts = {
