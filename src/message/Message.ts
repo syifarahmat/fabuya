@@ -1,5 +1,5 @@
-import type { WAMessage, WAMessageKey } from '../Baileys'
-import { jidNormalizedUser } from '../Baileys'
+import type { WAMessage, WAMessageKey } from '../../Baileys'
+import { jidNormalizedUser } from '../../Baileys'
 
 import type { ClientT } from '../client'
 import type { ChatT } from '../chat'
