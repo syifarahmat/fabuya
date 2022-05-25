@@ -1,9 +1,9 @@
 import EventEmitter from 'events'
 
-import * as Baileys from '../Baileys'
-import makeWASocket from '../Baileys'
-import type { WASocket } from '../Baileys'
-import { WAMessageKey } from '../Baileys'
+import * as Baileys from '../../Baileys'
+import makeWASocket from '../../Baileys'
+import type { WASocket } from '../../Baileys'
+import { WAMessageKey } from '../../Baileys'
 import QR from 'qrcode-terminal'
 
 import logger from '../logger'
