@@ -45,6 +45,7 @@
   },
   "files": [
     "/dist",
+    "/Baileys",
     "postinstall.js"
   ]
 }
