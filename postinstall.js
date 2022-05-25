@@ -6,7 +6,7 @@ const { spawnSync } = require('child_process');
 BAILEYS_HASH = '211a899ed4f56d85fc1acbb9439de8865ac4d777';
 
 // Check if this is clone
-if (!fs.existsSync(__dirname + '/docs')) {
+if (!fs.existsSync(path.resolve(__dirname, './docs/'))) {
 	console.log('[i] Npm package detected, skipping post-install.');
 	process.exit(0);
 }

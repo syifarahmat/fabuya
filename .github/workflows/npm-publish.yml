@@ -27,7 +27,8 @@ jobs:
       - name: Change version
         run: |
           npm version ${{ github.event.release.tag_name }} --no-git-tag-version
-      - run: npm install
+      - run: npm install -D
+      - run: npx tsc
       - name: Publish rc
         if: ${{ contains(github.event.release.tag_name, 'rc') }}
         run: |
