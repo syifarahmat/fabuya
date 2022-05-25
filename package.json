@@ -46,6 +46,7 @@
   "files": [
     "/dist",
     "/Baileys",
-    "postinstall.js"
+    "postinstall.js",
+    "package-lock.json"
   ]
 }
