@@ -10,6 +10,8 @@ if (process.env.GITHUB_ACTIONS) {
         console.log('[i] GitHub Action detected, skipping post-install.');
         process.exit(0);
 }
+let isgithttps = fs.existsSync(path.resolve(__dirname, './docs/'));
+let isbaileysinited = fs.existsSync(path.resolve(__dirname, './Baileys/README.md'));
 
 // spawnSync options
 let opts = {
@@ -25,7 +27,7 @@ cmds.push({
         cmd: ['git', 'init'], opt: opts
 });
 
-if (fs.existsSync(path.resolve(__dirname, './docs/'))) {
+if (isgithttps && !isbaileysinited) {
         cmds.push({
                 msg: "[i] Adding Baileys submodule",
                 cmd: ['git', 'submodule', 'add', 'https://github.com/adiwajshing/Baileys.git', 'Baileys'],
@@ -42,7 +44,7 @@ cmds.push({
         cmd: ['npm', 'install', '-D'], opt: baileysOpts
 });
 
-if (fs.existsSync(path.resolve(__dirname, './docs/'))) {
+if (isgithttps) {
         cmds.push({
                 msg: "[i] Compiling fabuya...",
                 cmd: ['npx', 'tsc'], opt: opts
@@ -52,5 +54,5 @@ if (fs.existsSync(path.resolve(__dirname, './docs/'))) {
 for (const cmd of cmds) {
         console.log(cmd.msg);
         let { status } = spawnSync(cmd.cmd.shift(), cmd.cmd, cmd.opt);
-        if (status != 0) throw "Error on postinstall";
+        if (status != 0) throw "Error on prepare";
 }
