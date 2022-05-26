@@ -80,7 +80,7 @@ Client.prototype.bindInitEvents = function bindInitEvents(): void {
 // EVENT LISTENERS
 //////////////////////////////////////////
 Client.prototype.on = function on(event: string, cb: any) {
-	this.events.push({event, cb});
+	this.events.push({event, callback: cb});
 	this.sock.ev.on(event, cb);
 };
 
