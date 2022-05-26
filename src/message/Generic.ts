@@ -1,4 +1,4 @@
 import { Message } from './Message'
 import { TextMessage } from './TextMessage'
 
-export type GenericMessage = Partial<Message> & Partial<TextMessage>;
+export interface GenericMessage extends Partial<Message>, Partial<TextMessage> {};
