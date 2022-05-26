@@ -39,3 +39,21 @@ export async function changePushName(newName: string, makeOnline: boolean = true
 	let response: BinaryNode = await this.sock.appPatch(patch);
 	return response;
 };
+
+export async function changeStatus(newStatus: string): Promise<void> {
+	let node: BinaryNode = {
+		tag: "iq",
+		attrs: {
+			to: "s.whatsapp.net",
+			type: "set",
+			xmlns: "status"
+		},
+		content: [{
+			tag: "status",
+			attrs: {},
+			content: Buffer.from(newStatus, 'utf-8')
+		}]
+	};
+
+	await this.query(node);
+};
