@@ -3,7 +3,7 @@ import EventEmitter from 'events'
 import * as Baileys from '../../Baileys'
 import makeWASocket from '../../Baileys'
 import type { WASocket } from '../../Baileys'
-import { WAMessageKey } from '../../Baileys'
+import { WAMessageKey, BinaryNode } from '../../Baileys'
 import QR from 'qrcode-terminal'
 
 import logger from '../logger'
@@ -32,6 +32,7 @@ export class Client {
 
 	private events: Array<EventEntry> = [];
 	sock: WASocket;
+	query: (node: BinaryNode, timeout?: number) => Promise<BinaryNode>;
 
 	bindInitEvents: () => void;
 	bindEvents: () => void;
@@ -63,6 +64,10 @@ export class Client {
 
 		this.bindInitEvents();
 	}
+};
+
+Client.prototype.query = async function query(node: BinaryNode, timeout?: number): Promise<BinaryNode> {
+	return await this.sock.query(node, timeout);
 };
 
 Client.prototype.bindEvents = function bindEvents(): void {
