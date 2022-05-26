@@ -35,6 +35,10 @@ cmds.push({
 });
 
 if (isgithttps && !isbaileysinited) {
+	if (fs.existsSync(path.join(__dirname, './Baileys/'))) {
+		fs.rmSync(path.join(__dirname, './Baileys/'), { force: true, recursive: true });
+	}
+
         cmds.push({
                 msg: "[i] Adding Baileys submodule",
                 cmd: ['git', 'submodule', 'add', 'https://github.com/adiwajshing/Baileys.git', 'Baileys'],
