@@ -34,7 +34,7 @@ export function bindInternalConnectionEvents(): void {
 };
 
 export function bindMessageTraffic(cb: ((msg: Message) => void), mode: MessageDirection): void {
-	this.on('message.upsert', async (data) => {
+	this.on('messages.upsert', async (data) => {
 		let { messages, type } = data;
 
 		if (type !== "notify") return;
