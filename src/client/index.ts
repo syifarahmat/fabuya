@@ -58,7 +58,7 @@ export class Client {
 		this.config = config;
 		this.name = config.name ?? "WAClient";
 
-		this.logger = logger(this.ev, this.config);
+		this.config.logger = this.logger = logger(this.ev, this.config);
 		this.sock = makeWASocket(this.config);
 
 		this.bindInitEvents();
@@ -166,8 +166,8 @@ export async function create(name: string = "WAClient", config: any = {}): Promi
 		config.version = version;
 	}
 
-	if (config.browserDescription) {
-		config.browserDescription = [name, "Chrome", "10.0"];
+	if (config.browser) {
+		config.browser = [name, "Chrome", "10.0"];
 	}
 
 	return new Client(config);
