@@ -54,7 +54,7 @@ export class Client {
 	send: (to: string, message: string) => Promise<void>;
 	readMessages: (keys: Array<WAMessageKey>) => Promise<void>;
 
-	setProfilePicture: (newPicture: Buffer) => Promise<BinaryNode>;
+	setProfilePicture: (newPicture: Buffer) => Promise<void>;
 	getProfilePicture: () => Promise<string>;
 	setPushName: (newName: string) => Promise<BinaryNode>;
 

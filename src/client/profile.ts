@@ -1,50 +1,14 @@
 import { BinaryNode, WAPatchCreate } from '../../Baileys'
 import { proto } from '../../Baileys'
+import { jidDecode } from '../../Baileys'
 
-// to delete, use `null` as the newPicture
-export async function changeProfilePicture(newPicture: Uint8Array | Buffer | null): Promise<BinaryNode> {
-	let node: BinaryNode = {
-		tag: "iq",
-		attrs: {
-			to: "s.whatsapp.net",
-			type: "set",
-			xmlns: "w:profile:picture"
-		}
-	};
-
-	if (newPicture === null) {
-		node.content = null;
-	} else {
-		node.content = [{
-			tag: "picture",
-			attrs: { type: "image" },
-			content: newPicture
-		}]
-	}
-
-	let response: BinaryNode = await this.query(node);
-	return response;
+// TODO: to delete, use `null` as the newPicture
+export async function changeProfilePicture(newPicture: Uint8Array | Buffer): Promise<void> {
+	await this.sock.updateProfilePicture(this.sock.user.id, newPicture);
 };
 
 export async function fetchProfilePictureUrl(): Promise<string> {
-	let node: BinaryNode = {
-		tag: "iq",
-		attrs: {
-			to: "s.whatsapp.net",
-			type: "get",
-			xmlns: "w:profile:picture"
-		},
-		content: {
-			tag: "picture",
-			attrs: {
-				query: "url"
-			},
-			content: null
-		}
-	};
-
-	let response: BinaryNode = await this.query(node);
-	return response;
+	return await this.sock.profilePictureUrl(this.sock.user.id);
 };
 
 export async function changePushName(newName: string, makeOnline: boolean = true): Promise<BinaryNode> {
