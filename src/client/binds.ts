@@ -69,9 +69,11 @@ export function bindMessageTraffic(cb: ((msg: GenericMessage) => void), mode: Me
 				chat = await Group.fromJid(this.sock, m.from);
 			}
 
-			chat.id = m.from;
-			chat.me = this;
-			m.chat = chat;
+			if (chat) {
+				chat.id = m.from;
+				chat.me = this;
+				m.chat = chat;
+			}
 
 			// Send data to callback
 			cb(m);
