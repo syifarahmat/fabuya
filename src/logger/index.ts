@@ -8,7 +8,7 @@ export default function makeLogger(ev: InstanceType<typeof EventEmitter>, config
 			ev.emit('logs', json);
 		}
 	};
-	const logger = pino({ level: 'debug' }, destination);
+	const logger = pino({ level: 'trace' }, destination);
 
 	return logger;
 };
