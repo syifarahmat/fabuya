@@ -27,7 +27,7 @@ export type ClientT = InstanceType<typeof Client>;
 
 export class Client {
 	name: string = "WAClient";
-	config: object = {};
+	config: any = {};
 	logger: ReturnType<typeof logger>;
 	ev: InstanceType<typeof EventEmitter>;
 
@@ -54,7 +54,7 @@ export class Client {
 	send: (to: string, message: string) => Promise<void>;
 	readMessages: (keys: Array<WAMessageKey>) => Promise<void>;
 
-	setProfilePicture: (newPicture: BinaryNode) => Promise<BinaryNode>;
+	setProfilePicture: (newPicture: Buffer) => Promise<BinaryNode>;
 	setPushName: (newName: string) => Promise<BinaryNode>;
 
 	constructor(config: any) {

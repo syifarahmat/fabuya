@@ -1,4 +1,4 @@
-import { BinaryNode } from '../Baileys'
+import { BinaryNode } from '../../Baileys'
 
 // to delete, use `null` as the newPicture
 export async function changeProfilePicture(newPicture: Buffer | null): Promise<BinaryNode> {
