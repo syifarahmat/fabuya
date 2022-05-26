@@ -81,7 +81,7 @@ Client.prototype.bindInitEvents = function bindInitEvents(): void {
 //////////////////////////////////////////
 Client.prototype.on = function on(event: string, cb: any) {
 	this.events.push({event, cb});
-	this.sock.ev.on(event cb);
+	this.sock.ev.on(event, cb);
 };
 
 Client.prototype.onQRUpdated = function onQRUpdated(cb: ((qr: string, data: string | object) => void)) {
