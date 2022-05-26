@@ -12,7 +12,7 @@ import * as utils from '../utils'
 
 import { bindInternalConnectionEvents, bindMessageTraffic } from './binds'
 import { MessageDirection } from './enums'
-import { changeProfilePicture, changePushName } from './profile'
+import { changeProfilePicture, fetchProfilePictureUrl, changePushName } from './profile'
 
 export interface EventEntry {
 	event: string;
@@ -55,6 +55,7 @@ export class Client {
 	readMessages: (keys: Array<WAMessageKey>) => Promise<void>;
 
 	setProfilePicture: (newPicture: Buffer) => Promise<BinaryNode>;
+	getProfilePicture: () => Promise<string>;
 	setPushName: (newName: string) => Promise<BinaryNode>;
 
 	constructor(config: any) {
@@ -166,6 +167,7 @@ Client.prototype.readMessages = async function readMessages(keys: Array<WAMessag
 
 // Profile features
 Client.prototype.setProfilePicture = changeProfilePicture;
+Client.prototype.getProfilePicture = fetchProfilePictureUrl;
 Client.prototype.setPushName = changePushName;
 
 //////////////////////////////////////////
