@@ -4,7 +4,7 @@ import { isJidUser, isJidBroadcast, isJidGroup, isJidStatusBroadcast, jidNormali
 
 import { MessageDirection } from './enums'
 
-import { Message, TextMessage } from '../message'
+import { GenericMessage, Message, TextMessage } from '../message'
 import type { MessageT } from '../message'
 import { Chat, Group } from '../chat'
 import type { ChatT } from '../chat'
@@ -33,7 +33,7 @@ export function bindInternalConnectionEvents(): void {
 	});
 };
 
-export function bindMessageTraffic(cb: ((msg: Message) => void), mode: MessageDirection): void {
+export function bindMessageTraffic(cb: ((msg: GenericMessage) => void), mode: MessageDirection): void {
 	this.on('messages.upsert', async (data) => {
 		let { messages, type } = data;
 
@@ -45,15 +45,14 @@ export function bindMessageTraffic(cb: ((msg: Message) => void), mode: MessageDi
 			if (mode === MessageDirection.OUTCOMING && msg.key.fromMe === false) continue;
 
 			// Prepare retval
-			let m: MessageT = new Message(msg);
-			/*let inner = msg.message;
+			let m: GenericMessage = new Message(msg);
+			let inner = msg.message;
 
 			if (inner) {
-				// Basic text message
 				if (inner.conversation || inner.extendedTextMessage) {
-					m = 
+					m = new TextMessage(msg);
 				}
-			} SHOULD IMPLEMENT TO Message.fromTruth*/
+			}
 
 			// Initialize reference variables
 			m.me = this;

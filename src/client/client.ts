@@ -7,7 +7,7 @@ import { WAMessageKey, BinaryNode } from '../../Baileys'
 import QR from 'qrcode-terminal'
 
 import logger from '../logger'
-import { Message } from '../message'
+import { Message, Generic } from '../message'
 import * as utils from '../utils'
 
 import { bindInternalConnectionEvents, bindMessageTraffic } from './binds'
@@ -42,9 +42,9 @@ export class Client {
 	onQRScanned: (cb: (() => void)) => void;
 	onLoggedIn: (cb: (() => void)) => void;
 	onLoggedOut: (cb: (() => void)) => void;
-	onMessage: (cb: ((msg: Message) => void), mode: MessageDirection) => void;
-	onIncomingMessage: (cb: (msg: Message) => void) => void;
-	onOutcomingMessage: (cb: (msg: Message) => void) => void;
+	onMessage: (cb: ((msg: GenericMessage) => void), mode: MessageDirection) => void;
+	onIncomingMessage: (cb: (msg: GenericMessage) => void) => void;
+	onOutcomingMessage: (cb: (msg: GenericMessage) => void) => void;
 	onReconnect: (cb: (() => void)) => void;
 	onLogs: (cb: ((msg: any) => void)) => void;
 
@@ -116,15 +116,15 @@ Client.prototype.onLoggedOut = function onLoggedOut(cb: (() => void)) {
 };
 
 // Message
-Client.prototype.onMessage = function onMessage(cb: ((msg: Message) => void), mode: MessageDirection = 2) {
+Client.prototype.onMessage = function onMessage(cb: ((msg: GenericMessage) => void), mode: MessageDirection = 2) {
 	bindMessageTraffic.call(this, cb, mode);
 };
 
-Client.prototype.onIncomingMessage = function onIncomingMessage(cb: (msg: Message) => void) {
+Client.prototype.onIncomingMessage = function onIncomingMessage(cb: (msg: GenericMessage) => void) {
 	this.onMessage(cb, MessageDirection.INCOMING);
 };
 
-Client.prototype.onOutcomingMessage = function onOutcomingMessage(cb: (msg: Message) => void) {
+Client.prototype.onOutcomingMessage = function onOutcomingMessage(cb: (msg: GenericMessage) => void) {
 	this.onMessage(cb, MessageDirection.OUTCOMING);
 };
 
