@@ -7,7 +7,7 @@ import { WAMessageKey, BinaryNode } from '../../Baileys'
 import QR from 'qrcode-terminal'
 
 import logger from '../logger'
-import { Message, Generic } from '../message'
+import { Message, GenericMessage } from '../message'
 import * as utils from '../utils'
 
 import { bindInternalConnectionEvents, bindMessageTraffic } from './binds'
