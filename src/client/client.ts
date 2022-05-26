@@ -8,10 +8,11 @@ import QR from 'qrcode-terminal'
 
 import logger from '../logger'
 import { Message } from '../message'
+import * as utils from '../utils'
 
 import { bindInternalConnectionEvents, bindMessageTraffic } from './binds'
 import { MessageDirection } from './enums'
-import * as utils from '../utils'
+import { changeProfilePicture, changePushName } from './profile'
 
 export interface EventEntry {
 	event: string;
@@ -52,6 +53,9 @@ export class Client {
 	loadAccount: () => void;
 	send: (to: string, message: string) => Promise<void>;
 	readMessages: (keys: Array<WAMessageKey>) => Promise<void>;
+
+	setProfilePicture: (newPicture: BinaryNode) => Promise<BinaryNode>;
+	setPushName: (newName: string) => Promise<BinaryNode>;
 
 	constructor(config: any) {
 		this.ev = new EventEmitter();
@@ -159,6 +163,10 @@ Client.prototype.send = async function send(to: string, message: string): Promis
 Client.prototype.readMessages = async function readMessages(keys: Array<WAMessageKey>): Promise<void> {
 	await this.sock.readMessages(keys);
 };
+
+// Profile features
+Client.prototype.setProfilePicture = changeProfilePicture;
+Client.prototype.setPushName = changePushName;
 
 //////////////////////////////////////////
 // STANDALONE FUNCTIONS
