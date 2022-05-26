@@ -41,7 +41,7 @@ if (isgithttps && !isbaileysinited) {
 
         cmds.push({
                 msg: "[i] Adding Baileys submodule",
-                cmd: ['git', 'submodule', 'add', 'https://github.com/adiwajshing/Baileys.git', 'Baileys'],
+                cmd: ['git', 'submodule', 'add', '-f', 'https://github.com/adiwajshing/Baileys.git', 'Baileys'],
                 opt: opts
         });
         cmds.push({
