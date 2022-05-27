@@ -1,8 +1,8 @@
 # fabuya
-An open-source [Baileys](https://github.com/adiwajshing/Baileys) WhatsApp API library wrapper. No puppeteer or selenium, faster than ever!
+[![Edge version](https://github.com/HanzHaxors/fabuya/actions/workflows/check-commit.yml/badge.svg)](https://github.com/HanzHaxors/fabuya/actions/workflows/check-commit.yml)
 
-Fabuya wraps Baileys' user-bearable library into user-enjoyable library.
-
+An open-source [Baileys](https://github.com/adiwajshing/Baileys) WhatsApp API library wrapper. No puppeteer or selenium, faster than ever!<br/>
+Fabuya wraps Baileys' user-bearable library into user-enjoyable library.<br/>
 Simply put a client up and assign event handlers, that's it!
 
 # WARNING: fabuya IS NOT PRODUCTION READY, UNSTABLE, AND IN UNDER ACTIVE DEVELOPMENT.
