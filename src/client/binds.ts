@@ -1,5 +1,5 @@
 import { Boom } from '@hapi/boom'
-import { DisconnectReason } from '../../Baileys'
+import { DisconnectReason, WAMessage } from '../../Baileys'
 import { isJidUser, isJidBroadcast, isJidGroup, isJidStatusBroadcast, jidNormalizedUser } from '../../Baileys'
 
 import { MessageDirection } from './enums'

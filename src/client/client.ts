@@ -160,7 +160,7 @@ Client.prototype.loadAccount = function loadAccount(): void {
 
 Client.prototype.send = async function send(to: string, message: string): Promise<GenericMessage> {
 	let msg: WAMessage = await this.sock.sendMessage(to, { text: message });
-	return await generateMessageObject(msg);
+	return await generateMessageObject.call(this, msg);
 };
 
 Client.prototype.readMessages = async function readMessages(keys: Array<WAMessageKey>): Promise<void> {

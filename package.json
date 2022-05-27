@@ -7,6 +7,7 @@
   "scripts": {
     "example.basic": "npx ts-node examples/basic.ts",
     "build.baileys": "npm --prefix Baileys install -D",
+    "tsc-error": "npx tsc --noEmit",
     "postinstall": "node postinstall.js"
   },
   "repository": {
