@@ -51,8 +51,13 @@ if (isgithttps && !isbaileysinited) {
 }
 
 cmds.push({
+        msg: "[i] Applying band-aid as per adiwajshing/Baileys#1667...",
+        cmd: ['npm', 'install', '-D', '@types/jest@27.5.1'], opt: baileysOpts
+});
+
+cmds.push({
         msg: "[i] Compiling Baileys...",
-        cmd: ['npm', 'install', '-D'], opt: baileysOpts
+        cmd: ['npm', 'install'], opt: baileysOpts
 });
 
 if (isgithttps) {

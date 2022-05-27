@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "example.basic": "npx ts-node examples/basic.ts",
+    "bandaid.baileys": "npm --prefix Baileys install -D @types/jest@27.5.1"
     "build.baileys": "npm --prefix Baileys install -D",
     "tsc-error": "npx tsc --noEmit",
     "postinstall": "node postinstall.js"
@@ -40,7 +41,6 @@
     "ws": "^8.5.0"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^7.1.1",
     "ts-node": "^10.8.0",
     "typescript": "^4.7.2"
   },
