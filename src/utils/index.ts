@@ -11,3 +11,7 @@ export async function getWhatsappVersion(): Promise<Array<number | string>> {
 
 	return [2, 2210, 9];
 };
+
+export function deepEqual(a, b): boolean {
+	return JSON.stringify(a) === JSON.stringify(b);
+};
