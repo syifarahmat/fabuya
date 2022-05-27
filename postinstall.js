@@ -3,7 +3,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 
 // TODO: Update BAILEYS_HASH automatically
-BAILEYS_HASH = '211a899ed4f56d85fc1acbb9439de8865ac4d777';
+BAILEYS_HASH = '3eeded66b22c97e52398d1cafaf81bf185bf8cd5';
 
 // GitHub Action goodbye.
 if (process.env.GITHUB_ACTIONS) {
