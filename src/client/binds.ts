@@ -33,6 +33,40 @@ export function bindInternalConnectionEvents(): void {
 	});
 };
 
+export async function generateMessageObject(src: WAMessage) {
+	let m: GenericMessage = new Message(src);
+	let inner = src.message;
+
+	if (inner) {
+		if (inner.conversation || inner.extendedTextMessage) {
+			m = new TextMessage(src);
+		}
+	}
+
+	// Initialize reference variables
+	m.me = this;
+	m.from = jidNormalizedUser(m.from ?? this.sock.user.id);
+
+	// Initialize Chat reference
+	let chat: ChatT;
+	if (isJidUser(m.from)) {
+		chat = new Chat;
+		// TODO: Get chat name from contact
+		chat.name = m.senderName;
+	} else if (isJidGroup(m.from)) {
+		// Requires fetching
+		chat = await Group.fromJid(this.sock, m.from);
+	}
+
+	if (chat) {
+		chat.id = m.from;
+		chat.me = this;
+		m.chat = chat;
+	}
+
+	return m;
+};
+
 export function bindMessageTraffic(cb: ((msg: GenericMessage) => void), mode: MessageDirection): void {
 	this.on('messages.upsert', async (data) => {
 		let { messages, type } = data;
@@ -45,35 +79,7 @@ export function bindMessageTraffic(cb: ((msg: GenericMessage) => void), mode: Me
 			if (mode === MessageDirection.OUTCOMING && msg.key.fromMe === false) continue;
 
 			// Prepare retval
-			let m: GenericMessage = new Message(msg);
-			let inner = msg.message;
-
-			if (inner) {
-				if (inner.conversation || inner.extendedTextMessage) {
-					m = new TextMessage(msg);
-				}
-			}
-
-			// Initialize reference variables
-			m.me = this;
-			m.from = jidNormalizedUser(m.from ?? this.sock.user.id);
-
-			// Initialize Chat reference
-			let chat: ChatT;
-			if (isJidUser(m.from)) {
-				chat = new Chat;
-				// TODO: Get chat name from contact
-				chat.name = m.senderName;
-			} else if (isJidGroup(m.from)) {
-				// Requires fetching
-				chat = await Group.fromJid(this.sock, m.from);
-			}
-
-			if (chat) {
-				chat.id = m.from;
-				chat.me = this;
-				m.chat = chat;
-			}
+			let m: GenericMessage = await generateMessageObject.call(this, msg);
 
 			// Send data to callback
 			cb(m);

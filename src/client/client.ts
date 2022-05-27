@@ -2,7 +2,7 @@ import EventEmitter from 'events'
 
 import * as Baileys from '../../Baileys'
 import makeWASocket from '../../Baileys'
-import type { WASocket } from '../../Baileys'
+import type { WASocket, WAMessage } from '../../Baileys'
 import { WAMessageKey, BinaryNode } from '../../Baileys'
 import QR from 'qrcode-terminal'
 
@@ -10,7 +10,7 @@ import logger from '../logger'
 import { Message, GenericMessage } from '../message'
 import * as utils from '../utils'
 
-import { bindInternalConnectionEvents, bindMessageTraffic } from './binds'
+import { generateMessageObject, bindInternalConnectionEvents, bindMessageTraffic } from './binds'
 import { MessageDirection } from './enums'
 import { changeProfilePicture, fetchProfilePictureUrl, changePushName, changeStatus } from './profile'
 
@@ -51,7 +51,7 @@ export class Client {
 	reconnect: () => void;
 	logout: () => void;
 	loadAccount: () => void;
-	send: (to: string, message: string) => Promise<void>;
+	send: (to: string, message: string) => Promise<GenericMessage>;
 	readMessages: (keys: Array<WAMessageKey>) => Promise<void>;
 
 	setProfilePicture: (newPicture: Buffer) => Promise<void>;
@@ -158,8 +158,9 @@ Client.prototype.loadAccount = function loadAccount(): void {
 	throw new Error("Client.loadAccount() method has not yet been implemented.");
 };
 
-Client.prototype.send = async function send(to: string, message: string): Promise<void> {
-	await this.sock.sendMessage(to, { text: message });
+Client.prototype.send = async function send(to: string, message: string): Promise<GenericMessage> {
+	let msg: WAMessage = await this.sock.sendMessage(to, { text: message });
+	return await generateMessageObject(msg);
 };
 
 Client.prototype.readMessages = async function readMessages(keys: Array<WAMessageKey>): Promise<void> {
