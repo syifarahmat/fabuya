@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "example.basic": "npx ts-node examples/basic.ts",
-    "bandaid.baileys": "npm --prefix Baileys install -D @types/jest@27.5.1"
+    "bandaid.baileys": "npm --prefix Baileys install -D @types/jest@27.5.1",
     "build.baileys": "npm --prefix Baileys install -D",
     "tsc-error": "npx tsc --noEmit",
     "postinstall": "node postinstall.js"
