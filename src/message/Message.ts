@@ -1,8 +1,18 @@
 import type { WAMessage, WAMessageKey } from '../../Baileys'
 import { jidNormalizedUser } from '../../Baileys'
+import { proto } from '../../Baileys'
 
 import type { ClientT } from '../client'
 import type { ChatT } from '../chat'
+
+export interface MessageReceipt {
+	delivered: boolean;
+	pending: boolean;
+	playedAt: number | Long;
+	readAt: number | Long;
+	timestamp: number | Long;
+	jid: string;
+};
 
 export class Message {
 	raw: WAMessage | undefined;
@@ -14,6 +24,7 @@ export class Message {
 	me: ClientT | undefined;
 	chat: ChatT | undefined;
 	timestamp: number | Long;
+	readonly receipt: Array<MessageReceipt | proto.IUserReceipt>;
 
 	isValid: () => boolean;
 
@@ -31,6 +42,10 @@ export class Message {
 		this.chat = undefined;
 
 		this.timestamp = src.messageTimestamp ?? -1;
+
+		// TODO: Parse this to MessagReceipt
+		// TODO: Buy new keyboard
+		this.receipt = src.userReceipt;
 	}
 };
 
