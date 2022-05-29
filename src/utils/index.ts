@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+export * from './array';
+
 export async function getWhatsappVersion(): Promise<Array<number | string>> {
 	let res = await axios.get("https://web.whatsapp.com/check-update?version=2.2210.9&platform=web");
 
@@ -15,3 +17,5 @@ export async function getWhatsappVersion(): Promise<Array<number | string>> {
 export function deepEqual(a, b): boolean {
 	return JSON.stringify(a) === JSON.stringify(b);
 };
+
+export { decodeMessageStanza } from '../../Baileys'
