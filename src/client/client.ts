@@ -1,16 +1,17 @@
 import EventEmitter from 'events'
 
-import * as Baileys from '../../Baileys'
 import makeWASocket from '../../Baileys'
-import type { WASocket, WAMessage } from '../../Baileys'
+import { useMultiFileAuthState } from '../../Baileys'
+import type { WASocket, WAMessage, AnyRegularMessageContent, MiscMessageGenerationOptions } from '../../Baileys'
 import { WAMessageKey, BinaryNode } from '../../Baileys'
+import { proto } from '../../Baileys'
 import QR from 'qrcode-terminal'
 
 import logger from '../logger'
 import { Message, GenericMessage } from '../message'
 import * as utils from '../utils'
 
-import { generateMessageObject, bindInternalConnectionEvents, bindMessageTraffic } from './binds'
+import { generateMessageObject, bindInternalConnectionEvents, bindMessageTraffic, getSentMessageByKey } from './binds'
 import { MessageDirection } from './enums'
 import { changeProfilePicture, fetchProfilePictureUrl, changePushName, changeStatus } from './profile'
 
@@ -30,6 +31,7 @@ export class Client {
 	config: any = {};
 	logger: ReturnType<typeof logger>;
 	ev: InstanceType<typeof EventEmitter>;
+	sentMessages: Array<WAMessage> = [];
 
 	private events: Array<EventEntry> = [];
 	sock: WASocket;
@@ -54,6 +56,8 @@ export class Client {
 	send: (to: string, message: string) => Promise<GenericMessage>;
 	readMessages: (keys: Array<WAMessageKey>) => Promise<void>;
 
+	_send: (to: string, message: AnyRegularMessageContent, options?: MiscMessageGenerationOptions) => Promise<GenericMessage>;
+
 	setProfilePicture: (newPicture: Buffer) => Promise<void>;
 	getProfilePicture: () => Promise<string>;
 	setPushName: (newName: string) => Promise<BinaryNode>;
@@ -66,8 +70,19 @@ export class Client {
 		this.name = config.name ?? "WAClient";
 
 		this.config.logger = this.logger = logger(this.ev, this.config);
-		this.sock = makeWASocket(this.config);
 
+		if (this.config.getMessage === undefined) {
+			this.config.getMessage = getSentMessageByKey.bind(this);
+		} else {
+			// Use both user-defined getMessage
+			// and fabuya's getMessage, in user-first order.
+			this.config.getMessage = async (key: proto.IMessageKey) => {
+				let a = await this.config.getMessage(key);
+				return a || (await getSentMessageByKey.call(this, key));
+			};
+		}
+
+		this.sock = makeWASocket(this.config);
 		this.bindInitEvents();
 	}
 };
@@ -158,9 +173,19 @@ Client.prototype.loadAccount = function loadAccount(): void {
 	throw new Error("Client.loadAccount() method has not yet been implemented.");
 };
 
+Client.prototype._send = async function _send(to: string, message: AnyRegularMessageContent, options?: MiscMessageGenerationOptions): Promise<GenericMessage> {
+	let msg: WAMessage = await this.sock.sendMessage(to, message, options);
+	let index = this.sentMessages.push(msg) - 1;
+	let retval: GenericMessage = await generateMessageObject.call(this, msg);
+
+	// Remove the sent message from temporary store
+	setTimeout((() => { utils.array_remove_index(this.sentMessages, index) }).bind(this), this.config.clearCacheDelay);
+
+	return retval;
+};
+
 Client.prototype.send = async function send(to: string, message: string): Promise<GenericMessage> {
-	let msg: WAMessage = await this.sock.sendMessage(to, { text: message });
-	return await generateMessageObject.call(this, msg);
+	return await this._send(to, { text: message });
 };
 
 Client.prototype.readMessages = async function readMessages(keys: Array<WAMessageKey>): Promise<void> {
@@ -177,6 +202,7 @@ Client.prototype.setBio = changeStatus;
 // STANDALONE FUNCTIONS
 //////////////////////////////////////////
 export async function create(name: string = "WAClient", config: any = {}): Promise<InstanceType<typeof Client>>{
+	let saveCreds: any;
 	config.name = config.name ?? name;
 
 	if (config.version === undefined) {
@@ -184,11 +210,26 @@ export async function create(name: string = "WAClient", config: any = {}): Promi
 		config.version = version;
 	}
 
-	if (config.browser) {
+	if (config.browser === undefined) {
 		config.browser = [name, "Chrome", "10.0"];
 	}
 
-	return new Client(config);
+	if (config.auth === undefined) {
+		const { state, saveCreds: saveCreds_ } = await useMultiFileAuthState(name + "_auth_info")
+		saveCreds = saveCreds_;
+		config.auth = state;
+	}
+
+	if (config.clearCacheDelay === undefined) {
+		config.clearCacheDelay = 1000 * 60;
+	}
+
+	let client = new Client(config);
+	if (saveCreds) {
+		client.on("creds.update", saveCreds);
+	}
+
+	return client;
 };
 
 export function forever() {

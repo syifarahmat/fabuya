@@ -1,6 +1,8 @@
 import { Boom } from '@hapi/boom'
 import { DisconnectReason, WAMessage } from '../../Baileys'
+import { proto } from '../../Baileys'
 import { isJidUser, isJidBroadcast, isJidGroup, isJidStatusBroadcast, jidNormalizedUser } from '../../Baileys'
+import type { WAMessageContent } from '../../Baileys'
 
 import { MessageDirection } from './enums'
 
@@ -8,6 +10,8 @@ import { GenericMessage, Message, TextMessage } from '../message'
 import type { MessageT } from '../message'
 import { Chat, Group } from '../chat'
 import type { ChatT } from '../chat'
+
+import * as utils from '../utils'
 
 export function bindInternalConnectionEvents(): void {
 	this.on('connection.update', (update) => {
@@ -33,9 +37,9 @@ export function bindInternalConnectionEvents(): void {
 	});
 };
 
-export async function generateMessageObject(src: WAMessage) {
+export async function generateMessageObject(src: WAMessage): Promise<GenericMessage> {
 	let m: GenericMessage = new Message(src);
-	let inner = src.message;
+	let inner: WAMessageContent = src.message;
 
 	if (inner) {
 		if (inner.conversation || inner.extendedTextMessage) {
@@ -51,7 +55,6 @@ export async function generateMessageObject(src: WAMessage) {
 	let chat: ChatT;
 	if (isJidUser(m.from)) {
 		chat = new Chat;
-		// TODO: Get chat name from contact
 		chat.name = m.senderName;
 	} else if (isJidGroup(m.from)) {
 		// Requires fetching
@@ -85,4 +88,15 @@ export function bindMessageTraffic(cb: ((msg: GenericMessage) => void), mode: Me
 			cb(m);
 		}
 	});
+};
+
+export async function getSentMessageByKey(key: proto.IMessageKey): Promise<proto.IMessage | undefined> {
+	for (const msg of this.sentMessages) {
+		// Why did key.id has participant additional key duh
+		if (msg.key.id === key.id) {
+			return msg.message;
+		}
+	}
+
+	return undefined;
 };
