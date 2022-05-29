@@ -1,4 +1,5 @@
 import type { WAMessage, WAMessageContent } from '../../Baileys'
+import { proto } from '../../Baileys'
 
 import { Message } from './Message'
 import type { MessageT } from './Message'
@@ -39,11 +40,11 @@ export class TextMessage extends Message {
 
 // TODO: response can be media or something
 TextMessage.prototype.reply = async function reply(response: string): Promise<void> {
-	await this.me.sock.sendMessage(this.from, { text: response });
+	await this.me.send(this.from, response);
 };
 
 TextMessage.prototype.quote = async function quote(response: string): Promise<void> {
-	await this.me.sock.sendMessage(this.from, { text: response }, { quoted: this.raw });
+	await this.me._send(this.from, { text: response }, { quoted: this.raw });
 };
 
 TextMessage.prototype.read = async function read(response: string): Promise<void> {
