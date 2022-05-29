@@ -37,6 +37,8 @@ export class Message {
 	isValid: () => boolean;
 	onRead: (cb: (reader: MessageReader) => void) => void;
 
+	react: (reaction: string) => Promise<void>;
+
 	constructor(src: WAMessage) {
 		let key: WAMessageKey = src.key;
 
@@ -70,6 +72,7 @@ Message.prototype.isValid = function isValid(): boolean {
 
 Message.prototype.onRead = function onRead(cb: (reader: MessageReader) => void): void {
 	if (this.me === undefined) {
+		console.dir(this, { depth: null });
 		throw new Error("Message class not initialized completely. Please report bug.");
 	}
 
@@ -100,6 +103,17 @@ Message.prototype.onRead = function onRead(cb: (reader: MessageReader) => void):
 		};
 
 		cb(detail);
+	});
+};
+
+Message.prototype.react = async function react(reaction: string) {
+	reaction = reaction || '';
+
+	await this.me._send(jidNormalizedUser(this.chat.id), {
+		react: {
+			text: reaction,
+			key: this.raw.key
+		}
 	});
 };
 
