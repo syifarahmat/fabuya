@@ -7,7 +7,7 @@
   "scripts": {
     "example.basic": "npx ts-node examples/basic.ts",
     "build.baileys": "npm install --prefix Baileys -D",
-    "tsc-error": "npx tsc --noEmit",
+    "check": "npx tsc --noEmit",
     "postinstall": "node postinstall.js"
   },
   "repository": {
@@ -40,6 +40,8 @@
     "ws": "^8.5.0"
   },
   "devDependencies": {
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.197",
     "ts-node": "^10.8.0",
     "typescript": "^4.7.2"
   },

@@ -15,4 +15,4 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm install -D
       - run: npm run build.baileys
-      - run: npx tsc
+      - run: npm run check

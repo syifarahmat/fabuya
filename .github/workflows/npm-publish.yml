@@ -29,7 +29,7 @@ jobs:
           npm version ${{ github.event.release.tag_name }} --no-git-tag-version
       - run: npm install -D
       - run: npm run build.baileys
-      - run: npx tsc
+      - run: npx swc src -d dist
       - name: Publish rc
         if: ${{ contains(github.event.release.tag_name, 'rc') }}
         run: |
