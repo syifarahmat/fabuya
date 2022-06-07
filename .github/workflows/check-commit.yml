@@ -14,6 +14,5 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
           registry-url: https://registry.npmjs.org/
       - run: npm install -D
-      - run: npm run bandaid.baileys
       - run: npm run build.baileys
       - run: npx tsc
