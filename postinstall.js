@@ -58,7 +58,7 @@ cmds.push({
 if (isgithttps) {
         cmds.push({
                 msg: "[i] Compiling fabuya...",
-                cmd: ['npx', 'swc', 'src', '-d dist'], opt: opts
+                cmd: ['npx', 'swc', 'src', '-d', 'dist'], opt: opts
         });
 }
 
