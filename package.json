@@ -6,7 +6,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "example.basic": "npx ts-node examples/basic.ts",
+    "build": "npx swc src -d dist",
     "build.baileys": "npm install --prefix Baileys -D",
+    "build.declaration": "npx tsc --emitDeclarationOnly",
     "check": "npx tsc --noEmit",
     "postinstall": "node postinstall.js"
   },
