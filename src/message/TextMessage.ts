@@ -2,7 +2,6 @@ import type { WAMessage, WAMessageContent } from '../../Baileys'
 import { proto } from '../../Baileys'
 
 import { Message } from './Message'
-import type { MessageT } from './Message'
 
 export class TextMessage extends Message {
 	content: string = '';

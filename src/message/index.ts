@@ -1,3 +1,5 @@
 export * from './Message'
 export * from './TextMessage'
+//export * from './ImageMessage'
+export * from './DocumentMessage'
 export * from './Generic'
