@@ -39,7 +39,12 @@ export class StructuredStorage {
 
 	bind(client: ClientT): void {
 		client.store = this;
+
+		// Contact mutations
 		client.on('contacts.set', contactSync.bind(this));
+		client.on('contacts.upsert', contactUpsert.bind(this));
+		client.on('contacts.update', contactUpdate.bind(this));
+
 //		client.on('chats.set', chatSync.bind(this));
 //		client.on('messages.set', messageSync.bind(this));
 	}
@@ -64,6 +69,23 @@ function contactSync({ contacts }: ContactSyncData) {
 		// TODO: Store contact as binary structure
 		fname = path.join(this.saveDir, subDirs.contact, fname);
 		fs.writeFileSync(fname, JSON.stringify(contact));
+	}
+}
+
+// New contact
+function contactUpsert(contacts: Contact[]) {
+	contactSync.call(this, { contacts });
+}
+
+// Contact update
+function contactUpdate(contacts: Partial<Contact>[]) {
+	for (const contact of contacts) {
+		let data: Contact = this.searchContactByJid(contact.id) ?? {};
+
+		Object.assign(data, contact);
+		contactSync.call(this, {
+			contacts: [data]
+		});
 	}
 }
 
