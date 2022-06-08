@@ -9,6 +9,7 @@ import QR from 'qrcode-terminal'
 
 import logger from '../logger'
 import { Message, GenericMessage } from '../message'
+import { StructuredStorage } from '../storage'
 import * as utils from '../utils'
 
 import { generateMessageObject, bindInternalConnectionEvents, bindMessageTraffic, getSentMessageByKey } from './binds'
@@ -32,6 +33,7 @@ export class Client {
 	logger: ReturnType<typeof logger>;
 	ev: InstanceType<typeof EventEmitter>;
 	sentMessages: Array<WAMessage> = [];
+	store: InstanceType<typeof StructuredStorage> = undefined;
 
 	private events: Array<EventEntry> = [];
 	sock: WASocket;
